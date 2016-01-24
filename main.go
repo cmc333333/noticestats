@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/cmc333333/noticestats/db"
+	"github.com/cmc333333/noticestats/federalregister"
 	"github.com/cmc333333/noticestats/web"
 )
 
@@ -22,6 +23,10 @@ func main() {
 		web.Run()
 	case "db-update":
 		db.CreateOrUpdate("development")
+	case "fr-test":
+		for _, res := range federalregister.Fetch() {
+			fmt.Printf("%s\n", res)
+		}
 	default:
 		fmt.Printf("Unknown command: %s", command)
 	}
