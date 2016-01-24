@@ -5,8 +5,8 @@ import (
 	"log"
 )
 
-func CreateOrUpdate(env string) {
-	conf, err := config(env)
+func CreateOrUpdate() {
+	conf, err := config()
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -22,9 +22,9 @@ func main() {
 	case "web":
 		web.Run()
 	case "db-update":
-		db.CreateOrUpdate("development")
+		db.CreateOrUpdate()
 	case "fr-sync":
-		federalregister.Sync("development")
+		federalregister.Sync()
 	default:
 		fmt.Printf("Unknown command: %s", command)
 	}

@@ -38,8 +38,8 @@ func Fetch(pubLTE time.Time) []NoticeResult {
 	return res.Results
 }
 
-func Sync(env string) {
-	conn := db.NewConnection(env)
+func Sync() {
+	conn := db.NewConnection()
 	for _, result := range Fetch(time.Now()) {
 		var count int
 		row := conn.QueryRow(

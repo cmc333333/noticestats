@@ -28,7 +28,7 @@ func Run() {
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
-	conn := db.NewConnection("development")
+	conn := db.NewConnection()
 	rows, err := conn.Queryx("SELECT * FROM notice ORDER BY published, id")
 	if err != nil {
 		log.Fatal(err)
