@@ -5,8 +5,12 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+func config(env string) (*goose.DBConf, error) {
+	return goose.NewDBConf("db", env, "")
+}
+
 func NewConnection(env string) (*sqlx.DB, error) {
-	dbconfig, err := goose.NewDBConf("db", env, "")
+	dbconfig, err := config(env)
 	if err != nil {
 		return nil, err
 	}

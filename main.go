@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/cmc333333/noticestats/db"
 	"github.com/cmc333333/noticestats/web"
 )
 
@@ -19,6 +20,8 @@ func main() {
 	switch command {
 	case "web":
 		web.Run()
+	case "db-update":
+		db.CreateOrUpdate("development")
 	default:
 		fmt.Printf("Unknown command: %s", command)
 	}
