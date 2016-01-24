@@ -1,4 +1,4 @@
-package main
+package web
 
 import (
 	"fmt"
@@ -7,9 +7,17 @@ import (
 	"runtime"
 )
 
-func main() {
+func Run() {
 	http.HandleFunc("/", hello)
-	bind := fmt.Sprintf("%s:%s", os.Getenv("OPENSHIFT_GO_IP"), os.Getenv("OPENSHIFT_GO_PORT"))
+	host := os.Getenv("OPENSHIFT_GO_IP")
+	port := os.Getenv("OPENSHIFT_GO_PORT")
+	if host == "" {
+		host = "localhost"
+	}
+	if port == "" {
+		port = "8080"
+	}
+	bind := fmt.Sprintf("%s:%s", host, port)
 	fmt.Printf("listening on %s...", bind)
 	err := http.ListenAndServe(bind, nil)
 	if err != nil {
