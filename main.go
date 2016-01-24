@@ -23,10 +23,8 @@ func main() {
 		web.Run()
 	case "db-update":
 		db.CreateOrUpdate("development")
-	case "fr-test":
-		for _, res := range federalregister.Fetch() {
-			fmt.Printf("%s\n", res)
-		}
+	case "fr-sync":
+		federalregister.Sync("development")
 	default:
 		fmt.Printf("Unknown command: %s", command)
 	}

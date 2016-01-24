@@ -2,7 +2,8 @@
 -- +goose Up
 -- SQL in section 'Up' is executed when this migration is applied
 CREATE TABLE notice (
-  id VARCHAR(20),
+  id VARCHAR(20) NOT NULL,
+  published DATE NOT NULL,
   PRIMARY KEY (id)
 );
 

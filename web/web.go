@@ -2,9 +2,11 @@ package web
 
 import (
 	"fmt"
+	"github.com/cmc333333/noticestats/db"
+	"github.com/cmc333333/noticestats/models"
+	"log"
 	"net/http"
 	"os"
-	"runtime"
 )
 
 func Run() {
@@ -26,5 +28,16 @@ func Run() {
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(res, "Testing: hello, world from %s", runtime.Version())
+	conn := db.NewConnection("development")
+	rows, err := conn.Queryx("SELECT * FROM notice ORDER BY published, id")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for rows.Next() {
+		var notice models.Notice
+		if err := rows.StructScan(&notice); err != nil {
+			log.Fatal(err)
+		}
+		fmt.Fprintf(res, "%s\n", notice)
+	}
 }

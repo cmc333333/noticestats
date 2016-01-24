@@ -1,5 +1,8 @@
 package models
 
+import "time"
+
 type Notice struct {
-	Id string
+	Id        string
+	Published time.Time
 }
