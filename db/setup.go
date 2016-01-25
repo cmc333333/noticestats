@@ -8,14 +8,14 @@ import (
 func CreateOrUpdate() {
 	conf, err := config()
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	dir := conf.MigrationsDir
 	target, err := goose.GetMostRecentDBVersion(dir)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	if err := goose.RunMigrations(conf, dir, target); err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 }

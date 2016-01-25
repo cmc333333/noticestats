@@ -41,7 +41,7 @@ func hello(res http.ResponseWriter, req *http.Request) {
 		var docNum string
 		var agency sql.NullString
 		if err := rows.Scan(&docNum, &agency); err != nil {
-			log.Fatal(err)
+			log.Panic(err)
 		}
 		if docNum != lastNotice {
 			fmt.Fprintf(res, "%s\n", docNum)

@@ -8,7 +8,9 @@ func insertNotices(conn *sqlx.DB, results []NoticeResult) {
 		SELECT ?, ? 
 		WHERE NOT EXISTS (SELECT 1 FROM notice WHERE id = ?)`)
 	for _, result := range results {
-		conn.MustExec(sql, result.DocumentNumber, result.Published, result.DocumentNumber)
+		conn.MustExec(
+			sql, result.DocumentNumber, result.Published,
+			result.DocumentNumber)
 	}
 	insertAgencies(conn, results)
 }

@@ -22,13 +22,13 @@ func fetch(pubLTE, pubGTE sql.NullString) []NoticeResult {
 	resp, err := http.Get(url)
 
 	if err != nil {
-		log.Print(err)
+		log.Panic(err)
 	}
 
 	var res NoticeResults
 	decoder := json.NewDecoder(resp.Body)
 	if err := decoder.Decode(&res); err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	return res.Results
 }

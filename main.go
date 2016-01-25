@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/cmc333333/noticestats/db"
 	"github.com/cmc333333/noticestats/federalregister"
+	"github.com/cmc333333/noticestats/stats"
 	"github.com/cmc333333/noticestats/web"
 )
 
@@ -27,6 +28,8 @@ func main() {
 		federalregister.Backfill()
 	case "fr-sync-new":
 		federalregister.SyncNew()
+	case "process-one":
+		stats.Process()
 	default:
 		fmt.Printf("Unknown command: %s", command)
 	}

@@ -16,7 +16,7 @@ func config() (*goose.DBConf, error) {
 func NewConnection() *sqlx.DB {
 	dbconfig, err := config()
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	return sqlx.MustConnect(dbconfig.Driver.Name, dbconfig.Driver.OpenStr)
 }

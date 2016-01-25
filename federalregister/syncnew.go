@@ -11,7 +11,7 @@ func SyncNew() {
 	var maxPublished sql.NullString
 	row := conn.QueryRow("SELECT max(published) from notice")
 	if err := row.Scan(&maxPublished); err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	insertNotices(conn, fetch(sql.NullString{"", false}, maxPublished))

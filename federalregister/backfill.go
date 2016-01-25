@@ -11,7 +11,7 @@ func Backfill() {
 	var minPublished sql.NullString
 	row := conn.QueryRow("SELECT min(published) from notice")
 	if err := row.Scan(&minPublished); err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	insertNotices(conn, fetch(minPublished, sql.NullString{"", false}))
