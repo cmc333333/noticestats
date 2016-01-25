@@ -14,8 +14,5 @@ func SyncNew() {
 		log.Fatal(err)
 	}
 
-	results := fetch(sql.NullString{"", false}, maxPublished)
-	for _, result := range results {
-		insertIfNew(conn, &result)
-	}
+	insertNotices(conn, fetch(sql.NullString{"", false}, maxPublished))
 }

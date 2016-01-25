@@ -14,8 +14,5 @@ func Backfill() {
 		log.Fatal(err)
 	}
 
-	results := fetch(minPublished, sql.NullString{"", false})
-	for _, result := range results {
-		insertIfNew(conn, &result)
-	}
+	insertNotices(conn, fetch(minPublished, sql.NullString{"", false}))
 }

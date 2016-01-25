@@ -1,9 +1,9 @@
 package web
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/cmc333333/noticestats/db"
-	"github.com/cmc333333/noticestats/models"
 	"log"
 	"net/http"
 	"os"
@@ -29,15 +29,26 @@ func Run() {
 
 func hello(res http.ResponseWriter, req *http.Request) {
 	conn := db.NewConnection()
-	rows, err := conn.Queryx("SELECT * FROM notice ORDER BY published, id")
+	rows, err := conn.Query(`
+		SELECT notice_id, agency
+		FROM notice LEFT JOIN notice_agency ON (notice.id = notice_id)
+		ORDER BY published, notice_id, agency`)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
+	lastNotice := ""
 	for rows.Next() {
-		var notice models.Notice
-		if err := rows.StructScan(&notice); err != nil {
+		var docNum string
+		var agency sql.NullString
+		if err := rows.Scan(&docNum, &agency); err != nil {
 			log.Fatal(err)
 		}
-		fmt.Fprintf(res, "%s\n", notice)
+		if docNum != lastNotice {
+			fmt.Fprintf(res, "%s\n", docNum)
+			lastNotice = docNum
+		}
+		if agency.Valid {
+			fmt.Fprintf(res, "\t%s\n", agency.String)
+		}
 	}
 }
