@@ -23,8 +23,10 @@ func main() {
 		web.Run()
 	case "db-update":
 		db.CreateOrUpdate()
-	case "fr-sync":
-		federalregister.Sync()
+	case "fr-backfill":
+		federalregister.Backfill()
+	case "fr-sync-new":
+		federalregister.SyncNew()
 	default:
 		fmt.Printf("Unknown command: %s", command)
 	}

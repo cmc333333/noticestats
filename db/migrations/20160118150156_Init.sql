@@ -3,7 +3,7 @@
 -- SQL in section 'Up' is executed when this migration is applied
 CREATE TABLE notice (
   id VARCHAR(20) NOT NULL,
-  published DATE NOT NULL,
+  published CHAR(10) NOT NULL,
   PRIMARY KEY (id)
 );
 
